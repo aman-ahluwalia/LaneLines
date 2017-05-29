@@ -6,24 +6,24 @@
 
   We will through an example to detail the process.
   [example](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images/solidWhiteRight.jpg) "Example"
-  <img src="test_images/solidWhiteRight.jpg" width="480" alt="Example Image" />
+  <div><img src="test_images/solidWhiteRight.jpg" width="480" alt="Example Image" /></div>
 
   My Pipeline consisted of 6 steps.
   Firstly i have converted the image to a grayscale image.
   [grayscale](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/1_solidWhiteRight.jpg) "Grayscale"
-  <img src="test_images_output/1_solidWhiteRight.jpg" width="480" alt="Grayscale Image" />
+  <div><img src="test_images_output/1_solidWhiteRight.jpg" width="480" alt="Grayscale Image" /></div>
 
   Then i applied the gaussian smoothing on the grayed scale image.  
   [gaussian_smoothing](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/2_solidWhiteRight.jpg) "Gaussian Smoothing"
-  <img src="test_images_output/2_solidWhiteRight.jpg" width="480" alt="Gaussian Smoothing" />
+  <div><img src="test_images_output/2_solidWhiteRight.jpg" width="480" alt="Gaussian Smoothing" /></div>
 
   Then i applied canny transform on the above image.
   [canny](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/3_solidWhiteRight.jpg) "Canny"
-  <img src="test_images_output/3_solidWhiteRight.jpg" width="480" alt="Canny" />
+  <div><img src="test_images_output/3_solidWhiteRight.jpg" width="480" alt="Canny" /></div>
 
   Further i created the masked edges image, to create our region of interest, in order to restrict the area where the lines should be drawn. Only keeps the region of the image defined by the polygon. The rest of the image is set to black.
   [masked_edges](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/4_solidWhiteRight.jpg) "Masked Edges"
-  <img src="test_images_output/4_solidWhiteRight.jpg" width="480" alt="Masked Edges" />
+  <div><img src="test_images_output/4_solidWhiteRight.jpg" width="480" alt="Masked Edges" /></div>
 
   Now using the above image we will determine the hough lines and drew it on a blank image of same size.
   But the transform will give many lines, but we actually intended to find just two lines, i.e. one for left lane and one for right.
@@ -31,11 +31,11 @@
   Firstly i need to separate the left line from right line we used the slope as our key component for the purpose, i.e. if slope is negative then it is in the left line bucket and if positive then it lies in right line bucket.
   Then i used the divided buckets in similar track to draw the respective lines. In each bucket, i calculated the mean slope of all the lines in the bucket. Then i calculated the mean point. With help of that and calculating y according to image size i computed the top and bottom points of the line. Then to remove flicker i did the weighted average over the last frames (affect will be clearly visible in the video) by creating a class called Line, which consists of two 2D lists.
   [hough_lines](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/5_solidWhiteRight.jpg) "Hough Lines"
-  <img src="test_images_output/5_solidWhiteRight.jpg" width="480" alt="Hough Lines" />
+  <div><img src="test_images_output/5_solidWhiteRight.jpg" width="480" alt="Hough Lines" /></div>
 
   Lastly we will try to make these hough lines on the original image by combining the above hough line image with the original image.
   [final_image](https://github.com/aman-ahluwalia/LaneLines/blob/master/test_images_output/5_solidWhiteRight.jpg) "Final Image"
-  <img src="test_images_output/6_solidWhiteRight.jpg" width="480" alt="Final Image" />
+  <div><img src="test_images_output/6_solidWhiteRight.jpg" width="480" alt="Final Image" /></div>
 
 
 
