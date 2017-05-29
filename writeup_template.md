@@ -1,53 +1,41 @@
-# **Finding Lane Lines on the Road**
-
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
-
----
-
 **Finding Lane Lines on the Road**
-
-The goals / steps of this project are the following:
-* Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
-
-
-[//]: # (Image References)
-
-[image1]: ./examples/grayscale.jpg "Grayscale"
-
----
 
 ### Reflection
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
   We will through an example to detail the process.
-  [example]: ./test_images/solidWhiteRight.jpg "Example"
+  [example]:(./test_images/solidWhiteRight.jpg) "Example"
+  <img src="test_images/solidWhiteRight.jpg" width="480" alt="Example Image" />
 
   My Pipeline consisted of 6 steps.
   Firstly i have converted the image to a grayscale image.
-  [grayscale]: ./test_images_output/1_solidWhiteRight.jpg "Grayscale"
+  [grayscale]:(./test_images_output/1_solidWhiteRight.jpg) "Grayscale"
+  <img src="test_images_output/1_solidWhiteRight.jpg" width="480" alt="Grayscale Image" />
 
   Then i applied the gaussian smoothing on the grayed scale image.  
-  [gaussian_smoothing]: ./test_images_output/2_solidWhiteRight.jpg "Gaussian Smoothing"
+  [gaussian_smoothing]:(./test_images_output/2_solidWhiteRight.jpg) "Gaussian Smoothing"
+  <img src="test_images_output/2_solidWhiteRight.jpg" width="480" alt="Gaussian Smoothing" />
 
   Then i applied canny transform on the above image.
-  [canny]: ./test_images_output/3_solidWhiteRight.jpg "Canny"
+  [canny]:(./test_images_output/3_solidWhiteRight.jpg) "Canny"
+  <img src="test_images_output/3_solidWhiteRight.jpg" width="480" alt="Canny" />
 
   Further i created the masked edges image, to create our region of interest, in order to restrict the area where the lines should be drawn. Only keeps the region of the image defined by the polygon. The rest of the image is set to black.
-  [masked_edges]: ./test_images_output/4_solidWhiteRight.jpg "Masked Edges"
+  [masked_edges]:(./test_images_output/4_solidWhiteRight.jpg) "Masked Edges"
+  <img src="test_images_output/4_solidWhiteRight.jpg" width="480" alt="Masked Edges" />
 
   Now using the above image we will determine the hough lines and drew it on a blank image of same size.
   But the transform will give many lines, but we actually intended to find just two lines, i.e. one for left lane and one for right.
   Hence in order to achieve the above goal i modified the draw_lines() function.
   Firstly i need to separate the left line from right line we used the slope as our key component for the purpose, i.e. if slope is negative then it is in the left line bucket and if positive then it lies in right line bucket.
   Then i used the divided buckets in similar track to draw the respective lines. In each bucket, i calculated the mean slope of all the lines in the bucket. Then i calculated the mean point. With help of that and calculating y according to image size i computed the top and bottom points of the line. Then to remove flicker i did the weighted average over the last frames (affect will be clearly visible in the video) by creating a class called Line, which consists of two 2D lists.
-  [hough_lines]: ./test_images_output/5_solidWhiteRight.jpg "Hough Lines"
+  [hough_lines]:(./test_images_output/5_solidWhiteRight.jpg) "Hough Lines"
+  <img src="test_images_output/5_solidWhiteRight.jpg" width="480" alt="Hough Lines" />
 
   Lastly we will try to make these hough lines on the original image by combining the above hough line image with the original image.
-  [final_image]: ./test_images_output/5_solidWhiteRight.jpg "Final Image"
+  [final_image]:(./test_images_output/5_solidWhiteRight.jpg) "Final Image"
+  <img src="test_images_output/6_solidWhiteRight.jpg" width="480" alt="Final Image" />
 
 ![alt text][image1]
 
